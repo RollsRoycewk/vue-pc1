@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>北京上海广州深圳</h1>
     <Header />
     <router-view></router-view>
     <Footer />

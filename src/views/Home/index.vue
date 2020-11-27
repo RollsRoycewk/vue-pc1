@@ -1,8 +1,5 @@
 <template>
-  <div class="home">
-    劳斯宾利法拉利
-    <p>北京京北会 傲途汇 京车汇</p>
-  </div>
+  <div>Home</div>
 </template>
 
 <script>
@@ -12,11 +9,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.home {
-  background-color: red;
-  p {
-    font-size: 50px;
-  }
-}
 </style>
 
