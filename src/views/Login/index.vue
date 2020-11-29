@@ -1,7 +1,7 @@
 <template>
   <div>
     Login
-    <button @click="handleLogin">发送请求</button>
+    <el-button type="success" @click="handleLogin">发送请求</el-button>
   </div>
 </template>
 
