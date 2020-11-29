@@ -23,7 +23,8 @@ export default new VueRouter({
       component: Register,
     },
     {
-      path: "/search",
+      name: "search",
+      path: "/search/:searchText?",
       component: Search,
     },
   ],

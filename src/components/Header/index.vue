@@ -8,7 +8,7 @@
           <p>
             <span>请</span>
             <router-link to="/login">登录</router-link>
-            <a href="###" class="register">免费注册</a>
+            <router-link to="/register" class="register">免费注册</router-link>
           </p>
         </div>
         <div class="typeList">
@@ -36,6 +36,7 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
+            v-model="searchText"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -53,9 +54,26 @@
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      searchText: "",
+    };
+  },
   methods: {
     handleSearch() {
-      this.$router.push("/search");
+      const { searchText } = this;
+      const location = {
+        name: "search",
+        // query: {
+        //   name: "rolls",
+        // },
+      };
+      if (searchText) {
+        location.params = {
+          searchText,
+        };
+      }
+      this.$router.push(location);
     },
   },
 };
