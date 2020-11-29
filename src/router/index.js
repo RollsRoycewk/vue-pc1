@@ -30,10 +30,16 @@ export default new VueRouter({
     {
       path: "/login",
       component: Login,
+      meta: {
+        footerHide: true,
+      },
     },
     {
       path: "/register",
       component: Register,
+      meta: {
+        footerHide: true,
+      },
     },
     {
       name: "search",
