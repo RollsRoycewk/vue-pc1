@@ -540,6 +540,7 @@ export default {
     },
   },
   mounted() {
+    if (this.navData.length) return
     this.getNavData();
   },
   // data() {
