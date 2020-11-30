@@ -19,9 +19,33 @@
             class="item bo"
             v-for="oneList in navData"
             :key="oneList.categoryId"
+            @click.prevent="handleUrl"
           >
             <h3>
-              <a href="">{{ oneList.categoryName }}</a>
+              <a
+                href=""
+                :data-categoryName="oneList.categoryName"
+                :data-categoryId="oneList.categoryId"
+                data-categoryType="1"
+                >{{ oneList.categoryName }}</a
+              >
+              <!-- <a
+                @click.prevent="
+                  $router.push({
+                    name: 'search',
+                    query: {
+                      categoryName: oneList.categoryName,
+                      category1Id: oneList.categoryId,
+                    },
+                  })
+                "
+                >{{ oneList.categoryName }}</a
+              > -->
+
+              <!-- <router-link
+                :to="`/search?categoryName=${oneList.categoryName}&category1Id=${oneList.categoryId}`"
+                >{{ oneList.categoryName }}</router-link
+              > -->
             </h3>
             <div class="item-list clearfix">
               <div class="subitem">
@@ -29,16 +53,63 @@
                   class="fore"
                   v-for="twoList in oneList.categoryChild"
                   :key="twoList.categoryId"
+                  data-categoryType="2"
                 >
                   <dt>
-                    <a href="">{{ twoList.categoryName }}</a>
+                    <!-- <a href="">{{ twoList.categoryName }}</a> -->
+                    <a
+                      href=""
+                      :data-categoryName="twoList.categoryName"
+                      :data-categoryId="twoList.categoryId"
+                      data-categoryType="2"
+                      >{{ twoList.categoryName }}</a
+                    >
+                    <!-- <a
+                      @click.prevent="
+                        $router.push({
+                          name: 'search',
+                          query: {
+                            categoryName: twoList.categoryName,
+                            category2Id: twoList.categoryId,
+                          },
+                        })
+                      "
+                      >{{ twoList.categoryName }}</a
+                    > -->
+                    <!-- <router-link
+                      :to="`/search?categoryName=${twoList.categoryName}&category2Id=${twoList.categoryId}`"
+                      >{{ twoList.categoryName }}</router-link
+                    > -->
                   </dt>
                   <dd>
                     <em
                       v-for="threeList in twoList.categoryChild"
                       :key="threeList.categoryId"
                     >
-                      <a href="">{{ threeList.categoryName }}</a>
+                      <!-- <a href="">{{ threeList.categoryName }}</a> -->
+                      <a
+                        href=""
+                        :data-categoryName="threeList.categoryName"
+                        :data-categoryId="threeList.categoryId"
+                        data-categoryType="3"
+                        >{{ threeList.categoryName }}</a
+                      >
+                      <!-- <a
+                        @click.prevent="
+                          $router.push({
+                            name: 'search',
+                            query: {
+                              categoryName: threeList.categoryName,
+                              category3Id: threeList.categoryId,
+                            },
+                          })
+                        "
+                        >{{ threeList.categoryName }}</a
+                      > -->
+                      <!-- <router-link
+                        :to="`/search?categoryName=${threeList.categoryName}&category3Id=${threeList.categoryId}`"
+                        >{{ threeList.categoryName }}</router-link
+                      > -->
                     </em>
                     <!-- <em>
                       <a href="">文学</a>
@@ -432,6 +503,20 @@ export default {
   },
   methods: {
     ...mapActions(["getNavData"]),
+    handleUrl(e) {
+      const { categoryid, categoryname, categorytype } = e.target.dataset;
+
+      const location = {
+        name: "search",
+      };
+      // 事件冒泡只要在子元素就会触发,防止误触
+      if (!categoryname) return;
+      location.query = {
+        categoryName: categoryname,
+        [`category${categorytype}Id`]: categoryid,
+      };
+      this.$router.push(location);
+    },
   },
   mounted() {
     this.getNavData();
