@@ -420,19 +420,31 @@
 </template>
 
 <script>
-import { getBaseCategoryList } from "@api/home";
+// import { getBaseCategoryList } from "@api/home";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "TypeNav",
-  data() {
-    return {
-      navData: [],
-    };
+  computed: {
+    ...mapState({
+      navData: (state) => state.home.navData,
+    }),
   },
-  async mounted() {
-    const res = await getBaseCategoryList();
-    this.navData = res.slice(0, -3);
+  methods: {
+    ...mapActions(["getNavData"]),
   },
+  mounted() {
+    this.getNavData();
+  },
+  // data() {
+  //   return {
+  //     navData: [],
+  //   };
+  // },
+  // async mounted() {
+  //   const res = await getBaseCategoryList();
+  //   this.navData = res.slice(0, -3);
+  // },
 };
 </script>
 
