@@ -73,6 +73,10 @@ export default {
           searchText,
         };
       }
+      const query = this.$route.query;
+      if (query.categoryName) {
+        location.query = query;
+      }
       this.$router.push(location);
     },
   },

@@ -505,16 +505,21 @@ export default {
     ...mapActions(["getNavData"]),
     handleUrl(e) {
       const { categoryid, categoryname, categorytype } = e.target.dataset;
-
       const location = {
         name: "search",
       };
       // 事件冒泡只要在子元素就会触发,防止误触
       if (!categoryname) return;
+
       location.query = {
         categoryName: categoryname,
         [`category${categorytype}Id`]: categoryid,
       };
+
+      const { searchText } = this.$route.params;
+      if (searchText) {
+        location.params = { searchText };
+      }
       this.$router.push(location);
     },
   },
