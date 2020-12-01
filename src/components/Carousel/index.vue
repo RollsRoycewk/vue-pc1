@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-container" id="mySwiper">
+  <div class="swiper-container" ref="swiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="banner in bannersList" :key="banner.id">
         <img :src="banner.imgUrl" />
@@ -36,7 +36,7 @@ export default {
   methods: {
     initBanner() {
       this.$nextTick(() => {
-        new Swiper(".swiper-container", {
+        new Swiper(this.$refs.swiper, {
           // direction: "vertical", // 垂直切换选项
           loop: true, // 循环模式选项
 
