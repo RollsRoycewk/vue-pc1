@@ -3,23 +3,7 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
-          <div class="swiper-wrapper">
-            <div
-              class="swiper-slide"
-              v-for="banner in bannersList"
-              :key="banner.id"
-            >
-              <img :src="banner.imgUrl" />
-            </div>
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <Carousel :bannersList="bannersList" />
       </div>
       <div class="right">
         <div class="news">
@@ -96,10 +80,8 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import "swiper/swiper-bundle.css";
-
-import Swiper, { Navigation, Pagination, Autoplay } from "swiper";
-Swiper.use([Navigation, Pagination, Autoplay]);
+// 引入组件
+import Carousel from "@components/Carousel";
 
 export default {
   name: "ListContainer",
@@ -111,35 +93,12 @@ export default {
       bannersList: (state) => state.home.bannersList,
     }),
   },
+  components: {
+    Carousel,
+  },
   async mounted() {
+    //   写在这个里面是不好使的
     await this.getBannersData();
-    this.$nextTick(() => {
-      new Swiper(".swiper-container", {
-        // direction: "vertical", // 垂直切换选项
-        loop: true, // 循环模式选项
-
-        autoplay: {
-          delay: 1000,
-          disableOnInteraction: true,
-        },
-
-        // 如果需要分页器
-        pagination: {
-          el: ".swiper-pagination",
-        },
-
-        // 如果需要前进后退按钮
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-
-        // // 如果需要滚动条
-        // scrollbar: {
-        //   el: ".swiper-scrollbar",
-        // },
-      });
-    });
   },
 };
 </script>
