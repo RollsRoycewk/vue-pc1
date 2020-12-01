@@ -30,6 +30,11 @@ export default {
   },
   watch: {
     bannersList() {
+      this.initBanner();
+    },
+  },
+  methods: {
+    initBanner() {
       this.$nextTick(() => {
         new Swiper(".swiper-container", {
           // direction: "vertical", // 垂直切换选项
@@ -59,6 +64,10 @@ export default {
         });
       });
     },
+  },
+
+  mounted() {
+    this.initBanner();
   },
 };
 </script>
