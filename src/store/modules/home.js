@@ -1,9 +1,10 @@
-import { reqBannersList, getBaseCategoryList } from "@api/home";
+import { reqBannersList, getBaseCategoryList, reqFloorsList } from "@api/home";
 
 export default {
   state: {
     navData: [],
-    BannersList: [],
+    bannersList: [],
+    floorsData: [],
   },
   getters: {},
   actions: {
@@ -11,10 +12,15 @@ export default {
       const navData = await getBaseCategoryList();
       commit("GET_NAV_DATA", navData);
     },
+    // 获取轮播图数据
     async getBannersData({ commit }) {
-      console.log(111);
       const bannersData = await reqBannersList();
       commit("GET_BANNERS_DATA", bannersData);
+    },
+    // 获取floors数据
+    async getFloorsData({ commit }) {
+      const floorsData = await reqFloorsList();
+      commit("GET_FLOORS_DATA", floorsData);
     },
   },
   mutations: {
@@ -22,7 +28,10 @@ export default {
       state.navData = navData;
     },
     GET_BANNERS_DATA(state, bannersData) {
-      state.BannersList = bannersData;
+      state.bannersList = bannersData;
+    },
+    GET_FLOORS_DATA(state, floorsData) {
+      state.floorsData = floorsData;
     },
   },
 };
