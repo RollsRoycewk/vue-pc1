@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import "./styles/resert.css";
 import "./plugins/element.js";
+import "../src/mock/mockServer";
 Vue.config.productionTip = false;
 
 new Vue({
