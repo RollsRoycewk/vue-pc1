@@ -10,7 +10,11 @@
     <!-- 猜你喜欢 -->
     <Like />
     <!--楼层-->
-    <Floor />
+    <Floor
+      v-for="floorItem in floorsData"
+      :key="floorItem.id"
+      :floorItem="floorItem"
+    />
     <!--楼层-->
     <Floor />
     <!--商标-->
