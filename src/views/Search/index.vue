@@ -11,10 +11,12 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-show="options.keyword">
+              {{ options.keyword }}<i>×</i>
+            </li>
+            <li class="with-x" v-show="options.categoryName">
+              {{ options.categoryName }}<i>×</i>
+            </li>
           </ul>
         </div>
 
@@ -149,26 +151,45 @@ export default {
   },
   methods: {
     ...mapActions(["getProductList"]),
+    // 请求数据
+    updataProductList() {
+      const { searchText: keyword } = this.$route.params;
+      const {
+        categoryName,
+        category1Id,
+        category2Id,
+        category3Id,
+      } = this.$route.query;
+
+      const options = {
+        ...this.options,
+        keyword,
+        categoryName,
+        category1Id,
+        category2Id,
+        category3Id,
+      };
+
+      // 更新this上的数据
+      this.options = options;
+      this.getProductList(options);
+    },
   },
   mounted() {
-    const { searchText: keyword } = this.$route.params;
-    const {
-      categoryName,
-      category1Id,
-      category2Id,
-      category3Id,
-    } = this.$route.query;
-
-    const options = {
-      ...this.options,
-      keyword,
-      categoryName,
-      category1Id,
-      category2Id,
-      category3Id,
-    };
-    this.getProductList(options);
+    this.updataProductList();
   },
+  watch: {
+    $route() {
+      this.updataProductList();
+    },
+    // $route: {
+    //   handler() {
+    //     this.updataProductList();
+    //   },
+    //   immediate: true,
+    // },
+  },
+
   components: {
     SearchSelector,
     TypeNav,
