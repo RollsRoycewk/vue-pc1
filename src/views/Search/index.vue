@@ -130,6 +130,20 @@ import TypeNav from "@components/TypeNav";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Search",
+  data() {
+    return {
+      options: {
+        category3Id: "",
+        categoryName: "",
+        keyword: "",
+        order: "1:desc",
+        pageNo: 1,
+        pageSize: 10,
+        props: [],
+        trademark: "",
+      },
+    };
+  },
   computed: {
     ...mapGetters(["goodsList"]),
   },
@@ -137,7 +151,23 @@ export default {
     ...mapActions(["getProductList"]),
   },
   mounted() {
-    this.getProductList();
+    const { searchText: keyword } = this.$route.params;
+    const {
+      categoryName,
+      category1Id,
+      category2Id,
+      category3Id,
+    } = this.$route.query;
+
+    const options = {
+      ...this.options,
+      keyword,
+      categoryName,
+      category1Id,
+      category2Id,
+      category3Id,
+    };
+    this.getProductList(options);
   },
   components: {
     SearchSelector,
