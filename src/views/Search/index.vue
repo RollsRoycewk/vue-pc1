@@ -22,11 +22,15 @@
             >
               分类:{{ options.categoryName }}<i>×</i>
             </li>
+            <!-- 品牌展示 -->
+            <li class="with-x" v-show="options.trademark" @click="delTrademark">
+              品牌:{{ options.trademark.split(":")[1] }}<i>×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector :clickTrademark="clickTrademark" />
 
         <!--details-->
         <div class="details clearfix">
@@ -197,6 +201,16 @@ export default {
         name: "search",
         query: this.$route.query,
       });
+    },
+    // 点击品牌属性,发送请求
+    clickTrademark(trademark) {
+      this.options.trademark = trademark;
+      this.updataProductList();
+    },
+    // 点击删除品牌信息哦
+    delTrademark() {
+      this.options.trademark = "";
+      this.updataProductList();
     },
   },
   mounted() {

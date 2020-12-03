@@ -4,7 +4,11 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId">
+          <li
+            v-for="trademark in trademarkList"
+            :key="trademark.tmId"
+            @click="clickTrademark(`${trademark.tmId}:${trademark.tmName}`)"
+          >
             {{ trademark.tmName }}
           </li>
         </ul>
@@ -35,6 +39,11 @@ export default {
   name: "SearchSelector",
   computed: {
     ...mapGetters(["attrsList", "trademarkList"]),
+  },
+  props: {
+    clickTrademark: {
+      type: Function,
+    },
   },
 };
 </script>
