@@ -191,6 +191,8 @@ export default {
     // 删除搜索信息 也就是params
     delKeyword() {
       this.options.keyword = "";
+      // 清空搜索框
+      this.$bus.$emit("clearSearch");
       this.$router.push({
         name: "search",
         query: this.$route.query,

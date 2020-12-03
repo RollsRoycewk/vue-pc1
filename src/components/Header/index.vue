@@ -80,6 +80,11 @@ export default {
       this.$router.push(location);
     },
   },
+  mounted() {
+    this.$bus.$on("clearSearch", () => {
+      this.searchText = "";
+    });
+  },
 };
 </script>
 
