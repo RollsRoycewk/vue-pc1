@@ -16,7 +16,7 @@
       :floorItem="floorItem"
     />
     <!--楼层-->
-    <Floor />
+    <!-- <Floor /> -->
     <!--商标-->
     <Brand />
   </div>

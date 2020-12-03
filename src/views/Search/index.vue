@@ -11,11 +11,16 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x" v-show="options.keyword">
-              {{ options.keyword }}<i>×</i>
+            <!-- 商品名称 -->
+            <li class="with-x" v-show="options.keyword" @click="delKeyword">
+              商品名称:{{ options.keyword }}<i>×</i>
             </li>
-            <li class="with-x" v-show="options.categoryName">
-              {{ options.categoryName }}<i>×</i>
+            <li
+              class="with-x"
+              v-show="options.categoryName"
+              @click="delDategoryName"
+            >
+              分类:{{ options.categoryName }}<i>×</i>
             </li>
           </ul>
         </div>
@@ -173,6 +178,23 @@ export default {
       // 更新this上的数据
       this.options = options;
       this.getProductList(options);
+    },
+    // 删除分类
+    delDategoryName() {
+      this.options.categoryName = "";
+      // 注意要重新跳转页面,路由地址变化的时候呼重新发送请求
+      this.$router.push({
+        name: "search",
+        params: this.$route.params,
+      });
+    },
+    // 删除搜索信息 也就是params
+    delKeyword() {
+      this.options.keyword = "";
+      this.$router.push({
+        name: "search",
+        query: this.$route.query,
+      });
     },
   },
   mounted() {
