@@ -142,7 +142,7 @@
             </ul>
           </div>
           <div class="fr page">
-            <div class="sui-pagination clearfix">
+            <!-- <div class="sui-pagination clearfix">
               <ul>
                 <li class="prev disabled">
                   <a href="#">«上一页</a>
@@ -168,6 +168,19 @@
                 </li>
               </ul>
               <div><span>共10页&nbsp;</span></div>
+            </div> -->
+            <div class="block">
+              <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                background
+                :current-page="options.pageNo"
+                :page-sizes="[5, 10, 15, 20]"
+                :page-size="100"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+              >
+              </el-pagination>
             </div>
           </div>
         </div>
@@ -201,7 +214,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["goodsList"]),
+    ...mapGetters(["goodsList", "total"]),
   },
   methods: {
     ...mapActions(["getProductList"]),
@@ -288,6 +301,14 @@ export default {
       }
 
       this.options.order = `${sortNum}:${orderType}`;
+      this.updataProductList();
+    },
+    handleSizeChange(SizeChange) {
+      this.options.pageSize = SizeChange;
+      this.updataProductList();
+    },
+    handleCurrentChange(CurrentChange) {
+      this.options.pageNo = CurrentChange;
       this.updataProductList();
     },
   },
