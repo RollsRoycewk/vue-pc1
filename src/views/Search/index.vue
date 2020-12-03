@@ -26,11 +26,20 @@
             <li class="with-x" v-show="options.trademark" @click="delTrademark">
               品牌:{{ options.trademark.split(":")[1] }}<i>×</i>
             </li>
+            <!-- 属性展示 -->
+            <li
+              class="with-x"
+              v-for="(prop, index) in options.props"
+              :key="prop"
+              @click="delProp(index)"
+            >
+              {{ prop.split(":")[2] }}:{{ prop.split(":")[1] }}<i>×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector :clickTrademark="clickTrademark" />
+        <SearchSelector :clickTrademark="clickTrademark" @add-prop="addProp" />
 
         <!--details-->
         <div class="details clearfix">
@@ -210,6 +219,16 @@ export default {
     // 点击删除品牌信息哦
     delTrademark() {
       this.options.trademark = "";
+      this.updataProductList();
+    },
+    // 点击添加品牌属性
+    addProp(prop) {
+      this.options.props.push(prop);
+      this.updataProductList();
+    },
+    // 点击删除属性
+    delProp(index) {
+      this.options.props.splice(index, 1);
       this.updataProductList();
     },
   },
