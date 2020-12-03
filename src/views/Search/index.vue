@@ -46,27 +46,54 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#"
+                <li
+                  :class="{ active: options.order.split(':')[0] === '1' }"
+                  @click="sorting('1')"
+                >
+                  <a
                     >综合
-                    <i class="iconfont icon-up1"></i>
+                    <i
+                      :class="{
+                        iconfont: true,
+                        'icon-up1': allSort,
+                        'icon-up': !allSort,
+                      }"
+                    ></i>
+                    <!-- <i :class="{ iconfont: true, 'icon-up': true }"></i> -->
                   </a>
                 </li>
                 <li>
-                  <a href="#">销量</a>
+                  <a>销量</a>
                 </li>
                 <li>
-                  <a href="#">新品</a>
+                  <a>新品</a>
                 </li>
                 <li>
-                  <a href="#">评价</a>
+                  <a>评价</a>
                 </li>
-                <li>
-                  <a href="#"
+                <li
+                  :class="{ active: options.order.split(':')[0] === '2' }"
+                  @click="sorting('2')"
+                >
+                  <a
                     >价格
                     <span>
-                      <i class="iconfont icon-jiantouarrow492"></i>
-                      <i class="iconfont icon-jiantouarrow486"></i>
+                      <i
+                        :class="{
+                          iconfont: true,
+                          'icon-jiantouarrow492': true,
+                          deactive:
+                            options.order.split(':')[0] === '2' && productList,
+                        }"
+                      ></i>
+                      <i
+                        :class="{
+                          iconfont: true,
+                          'icon-jiantouarrow486': true,
+                          deactive:
+                            options.order.split(':')[0] === '2' && !productList,
+                        }"
+                      ></i>
                     </span>
                   </a>
                 </li>
@@ -168,6 +195,9 @@ export default {
         props: [],
         trademark: "",
       },
+      // 综合排序
+      allSort: false,
+      productList: false,
     };
   },
   computed: {
@@ -235,6 +265,28 @@ export default {
     // 点击删除属性
     delProp(index) {
       this.options.props.splice(index, 1);
+      this.updataProductList();
+    },
+    // 排序方式
+    sorting(sortNum) {
+      let [orderNum, orderType] = this.options.order.split(":");
+
+      if (sortNum === orderNum) {
+        // 如果相等说明是第二次点击,改变图标
+        if (sortNum === "1") {
+          this.allSort = !this.allSort;
+        } else {
+          this.productList = !this.productList;
+        }
+        orderType = orderType === "desc" ? "asc" : "desc";
+      } else {
+        if (sortNum === "2") {
+          this.productList = false;
+          orderType = "asc";
+        }
+      }
+
+      this.options.order = `${sortNum}:${orderType}`;
       this.updataProductList();
     },
   },
@@ -362,17 +414,28 @@ export default {
               line-height: 18px;
 
               a {
-                display: block;
+                display: flex;
                 cursor: pointer;
                 padding: 11px 15px;
                 color: #777;
                 text-decoration: none;
+                span {
+                  display: flex;
+                  flex-direction: column;
+                  line-height: 11px;
+                  margin-left: 5px;
+                }
               }
 
               &.active {
                 a {
                   background: #e1251b;
                   color: #fff;
+                  i {
+                    &.deactive {
+                      color: rgba(250, 250, 250, 0.5);
+                    }
+                  }
                 }
               }
             }
