@@ -270,7 +270,6 @@ export default {
     // 排序方式
     sorting(sortNum) {
       let [orderNum, orderType] = this.options.order.split(":");
-
       if (sortNum === orderNum) {
         // 如果相等说明是第二次点击,改变图标
         if (sortNum === "1") {
@@ -280,7 +279,9 @@ export default {
         }
         orderType = orderType === "desc" ? "asc" : "desc";
       } else {
-        if (sortNum === "2") {
+        if (sortNum === "1") {
+          orderType = this.allSort ? "asc" : "desc";
+        } else {
           this.productList = false;
           orderType = "asc";
         }
