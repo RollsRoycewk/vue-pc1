@@ -183,7 +183,7 @@ export default {
     delDategoryName() {
       this.options.categoryName = "";
       // 注意要重新跳转页面,路由地址变化的时候呼重新发送请求
-      this.$router.push({
+      this.$router.replace({
         name: "search",
         params: this.$route.params,
       });
@@ -193,7 +193,7 @@ export default {
       this.options.keyword = "";
       // 清空搜索框
       this.$bus.$emit("clearSearch");
-      this.$router.push({
+      this.$router.replace({
         name: "search",
         query: this.$route.query,
       });
