@@ -124,7 +124,10 @@
                     >
                   </div>
                   <div class="commit">
-                    <i class="command">已有<span>777</span>人评价</i>
+                    <i class="command"
+                      >已有<span>{{ parseInt(Math.random() * 10000) }}</span
+                      >人评价</i
+                    >
                   </div>
                   <div class="operate">
                     <a

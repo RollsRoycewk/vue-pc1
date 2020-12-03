@@ -37,6 +37,7 @@
             id="autocomplete"
             class="input-error input-xxlarge"
             v-model="searchText"
+            @keyup="handleSearch"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
