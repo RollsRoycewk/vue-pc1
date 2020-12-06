@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container" ref="swiper">
     <div class="swiper-wrapper">
       <div
         class="swiper-slide"
@@ -30,17 +30,19 @@ export default {
   },
   watch: {
     skuImageList() {
-      new Swiper(".swiper-container", {
-        slidesPerGroup: 5,
-        slidesPerView: 5,
-        pagination: {
-          el: ".swiper-pagination",
-        },
+      this.$nextTick(() => {
+        new Swiper(this.$refs.swiper, {
+          slidesPerGroup: 5,
+          slidesPerView: 5,
+          pagination: {
+            el: ".swiper-pagination",
+          },
 
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
       });
     },
   },
