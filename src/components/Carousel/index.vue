@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import "swiper/swiper-bundle.css";
+// 性能优化.已经在main.js中引入
+// import "swiper/swiper-bundle.css";
 
 import Swiper, { Navigation, Pagination, Autoplay } from "swiper";
 Swiper.use([Navigation, Pagination, Autoplay]);

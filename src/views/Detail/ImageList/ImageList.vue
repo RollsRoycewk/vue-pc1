@@ -15,12 +15,30 @@
 </template>
 
 <script>
-// import Swiper from 'swiper'
+import Swiper, { Navigation, Pagination } from "swiper";
+
+Swiper.use([Navigation, Pagination]);
 export default {
   name: "ImageList",
   props: {
     skuImageList: {
       type: Array,
+    },
+  },
+  watch: {
+    skuImageList() {
+      new Swiper(".swiper-container", {
+        slidesPerGroup: 5,
+        slidesPerView: 5,
+        pagination: {
+          el: ".swiper-pagination",
+        },
+
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
     },
   },
 };

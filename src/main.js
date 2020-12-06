@@ -9,6 +9,8 @@ import "../src/mock/mockServer";
 
 // 引入图标字体样式
 import "./styles/iconfont.css";
+// 轮播图样式
+import "swiper/swiper-bundle.css";
 Vue.config.productionTip = false;
 
 new Vue({
