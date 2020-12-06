@@ -120,12 +120,12 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
+                <input autocomplete="off" class="itxt" v-model="skuNum" />
                 <a href="javascript:" class="plus">+</a>
                 <a href="javascript:" class="mins">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addShopCartSu">加入购物车</a>
               </div>
             </div>
           </div>
@@ -375,6 +375,8 @@ export default {
   data() {
     return {
       nowImgIndex: 0,
+      // 商品数量,默认为0
+      skuNum: 0,
     };
   },
   components: {
@@ -386,6 +388,9 @@ export default {
     ...mapActions(["getDetailList"]),
     upNowImg(index) {
       this.nowImgIndex = index;
+    },
+    addShopCartSu() {
+      this.$router.push(`/addcartsuccess?skuNum=${this.skuNum}`);
     },
   },
   computed: {
