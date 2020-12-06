@@ -9,7 +9,7 @@ function getUserTempId() {
 
   userTempId = uuidv4();
 
-  localStorage.setItem("userTempId");
+  localStorage.setItem("userTempId", userTempId);
   return userTempId;
 }
 
