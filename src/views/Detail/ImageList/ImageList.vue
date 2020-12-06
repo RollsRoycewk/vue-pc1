@@ -3,10 +3,10 @@
     <div class="swiper-wrapper">
       <div
         class="swiper-slide"
-        v-for="skuImage in skuImageList"
+        v-for="(skuImage, index) in skuImageList"
         :key="skuImage.id"
       >
-        <img :src="skuImage.imgUrl" />
+        <img :src="skuImage.imgUrl" @click="upNowImg(index)" />
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -23,6 +23,9 @@ export default {
   props: {
     skuImageList: {
       type: Array,
+    },
+    upNowImg: {
+      type: Function,
     },
   },
   watch: {

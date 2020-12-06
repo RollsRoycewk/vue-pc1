@@ -19,9 +19,19 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom />
+          <Zoom
+            :smallImg="
+              skuInfo.skuImageList && skuInfo.skuImageList[nowImgIndex].imgUrl
+            "
+            :bigImg="
+              skuInfo.skuImageList && skuInfo.skuImageList[nowImgIndex].imgUrl
+            "
+          />
           <!-- 小图列表 -->
-          <ImageList :skuImageList="skuInfo.skuImageList" />
+          <ImageList
+            :skuImageList="skuInfo.skuImageList"
+            :upNowImg="upNowImg"
+          />
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -362,6 +372,11 @@ import TypeNav from "@components/TypeNav";
 
 export default {
   name: "Detail",
+  data() {
+    return {
+      nowImgIndex: 0,
+    };
+  },
   components: {
     ImageList,
     Zoom,
@@ -369,6 +384,9 @@ export default {
   },
   methods: {
     ...mapActions(["getDetailList"]),
+    upNowImg(index) {
+      this.nowImgIndex = index;
+    },
   },
   computed: {
     ...mapGetters(["categoryView", "spuSaleAttrList", "skuInfo"]),
