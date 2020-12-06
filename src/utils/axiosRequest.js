@@ -6,6 +6,10 @@ import "nprogress/nprogress.css";
 
 // 错误提醒
 import { Notification } from "element-ui";
+// 引入uuis
+import getUserTempId from "./getUserTempId";
+// 一上来执行一次,不会再执行
+let userTempId = getUserTempId();
 
 const instance = axios.create({
   baseURL: "/api",
@@ -14,6 +18,7 @@ const instance = axios.create({
 // 请求拦截器
 instance.interceptors.request.use((config) => {
   NProgress.start();
+  config.headers.userTempId = userTempId;
   return config;
 });
 
