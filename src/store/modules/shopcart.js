@@ -3,6 +3,7 @@ import { reqGetCartList, reqGetAddToCart } from "@api/shopcart";
 export default {
   state: {
     shopCartAllList: [],
+    addCartSuccess: [],
   },
   getters: {},
   actions: {
@@ -20,6 +21,9 @@ export default {
   mutations: {
     GET_CART_LIST(state, shopCartAllList) {
       state.shopCartAllList = shopCartAllList;
+    },
+    ADD_CRAT_DATA(state, addCartSuccess) {
+      state.addCartSuccess = addCartSuccess;
     },
   },
 };

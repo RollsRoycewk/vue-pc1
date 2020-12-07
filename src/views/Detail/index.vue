@@ -343,7 +343,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import ImageList from "./ImageList/ImageList";
 import Zoom from "./Zoom/Zoom";
@@ -357,6 +357,8 @@ export default {
       nowImgIndex: 0,
       // 商品数量,默认为0
       skuNum: 0,
+      // addCarts
+      addCart: {},
     };
   },
   components: {
@@ -366,6 +368,7 @@ export default {
   },
   methods: {
     ...mapActions(["getDetailList", "getAddToCart"]),
+    ...mapMutations(["ADD_CRAT_DATA"]),
     upNowImg(index) {
       this.nowImgIndex = index;
     },
@@ -375,6 +378,7 @@ export default {
           skuId: this.skuInfo.id,
           skuNum: this.skuNum,
         });
+        this.ADD_CRAT_DATA(this.skuInfo);
         this.$router.push(`/addcartsuccess?skuNum=${this.skuNum}`);
       } catch (error) {
         console.log(error);
@@ -383,6 +387,9 @@ export default {
   },
   computed: {
     ...mapGetters(["categoryView", "spuSaleAttrList", "skuInfo"]),
+    // ...mapState({
+    //   addCartSuccess: (state) => state.addCartSuccess,
+    // }),
   },
   mounted() {
     this.getDetailList(this.$route.params.detailId);
